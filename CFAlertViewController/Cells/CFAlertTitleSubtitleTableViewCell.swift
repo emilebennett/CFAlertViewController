@@ -128,7 +128,7 @@ public class CFAlertTitleSubtitleTableViewCell: UITableViewCell {
         else {
             titleLabelBottomConstraint?.isActive = false
             subtitleLabelTopConstraint?.isActive = false
-            titleSubtitleVerticalSpacingConstraint?.constant = 8.0
+            titleSubtitleVerticalSpacingConstraint?.constant = 10.0
         }
     }
 }
