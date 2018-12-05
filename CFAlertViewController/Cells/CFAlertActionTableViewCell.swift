@@ -191,6 +191,10 @@ public class CFAlertActionTableViewCell: UITableViewCell {
         contentView.layoutIfNeeded()
     }
     
+    public func setCustomFontForButton(font: UIFont){
+        actionButton?.titleLabel?.font = font
+    }
+    
     
     // MARK: - Button Click Events
     @IBAction internal func actionButtonClicked(_ sender: Any) {
