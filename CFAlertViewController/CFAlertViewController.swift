@@ -185,6 +185,7 @@ open class CFAlertViewController: UIViewController    {
             }
         }
     }
+
     
     @objc @IBOutlet public weak var backgroundColorView: UIView?
     @objc @IBOutlet public weak var backgroundBlurView: UIVisualEffectView?
@@ -193,7 +194,6 @@ open class CFAlertViewController: UIViewController    {
             interactiveTransitionDelegate?.enableInteractiveTransition = shouldDismissOnBackgroundTap
         }
     }
-    
     
     // The view which holds the popup UI
     // You can change corner radius or background color of this view for additional customisation
@@ -374,12 +374,12 @@ open class CFAlertViewController: UIViewController    {
     internal func loadVariables() {
         
         // Register For Keyboard Notification Observer
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         // Text Field & Text View Notifications
-        NotificationCenter.default.addObserver(self, selector: #selector(textViewOrTextFieldDidBeginEditing(_:)), name: UITextField.textDidBeginEditingNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(textViewOrTextFieldDidBeginEditing(_:)), name: UITextView.textDidBeginEditingNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(textViewOrTextFieldDidBeginEditing(_:)), name: NSNotification.Name.UITextFieldTextDidBeginEditing, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(textViewOrTextFieldDidBeginEditing(_:)), name: NSNotification.Name.UITextViewTextDidBeginEditing, object: nil)
         
         // Register Cells For Table
         let actionCellNib = UINib(nibName: CFAlertActionTableViewCell.identifier(), bundle: Bundle(for: CFAlertActionTableViewCell.self))
@@ -551,21 +551,21 @@ open class CFAlertViewController: UIViewController    {
     internal func updateContainerViewFrame(withAnimation shouldAnimate: Bool) {
         
         NSObject.runSynchronouslyOnMainQueueWithoutDeadlocking {
-
+            
             if shouldAnimate {
                 // Animate height changes
                 UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [.curveEaseOut, .beginFromCurrentState, .allowUserInteraction], animations: {() -> Void in
-
+                    
                     // Update Container View Frame
                     self.updateContainerViewFrame()
-
+                    
                     // Relayout
                     self.view.layoutIfNeeded()
-
+                    
                 }, completion: { _ in })
             }
             else {
-        
+                
                 // Update Container View Frame
                 self.updateContainerViewFrame()
             }
@@ -598,7 +598,7 @@ open class CFAlertViewController: UIViewController    {
     @objc internal func viewDidTap(_ gestureRecognizer: UITapGestureRecognizer) {
         
         if gestureRecognizer.state == .ended {
-         
+            
             // Get Tap Location
             let tapLocation: CGPoint = gestureRecognizer.location(in: gestureRecognizer.view)
             let tapView = gestureRecognizer.view?.hitTest(tapLocation, with: nil)
@@ -622,7 +622,7 @@ open class CFAlertViewController: UIViewController    {
         
         let info: [AnyHashable: Any]? = notification.userInfo
         if let info = info  {
-            if let kbRect = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            if let kbRect = info[UIKeyboardFrameEndUserInfoKey] as? CGRect {
                 if let viewRect = self.view.window?.convert(self.view.frame, from: self.view)   {
                     let intersectRect: CGRect = kbRect.intersection(viewRect)
                     if intersectRect.size.height > 0.0 {
@@ -631,7 +631,7 @@ open class CFAlertViewController: UIViewController    {
                             // Update Keyboard Height
                             self?.keyboardHeight = intersectRect.size.height
                             self?.view.layoutIfNeeded()
-                        }, completion: { _ in })
+                            }, completion: { _ in })
                     }
                 }
             }
@@ -749,19 +749,18 @@ extension CFAlertViewController: UITableViewDataSource, UITableViewDelegate, CFA
             cell = tableView.dequeueReusableCell(withIdentifier: CFAlertTitleSubtitleTableViewCell.identifier())
             let titleSubtitleCell: CFAlertTitleSubtitleTableViewCell? = (cell as? CFAlertTitleSubtitleTableViewCell)
             // Set Content
-            titleSubtitleCell?.setTitle(titleString, titleColor: titleColor, subtitle: messageString, subtitleColor: messageColor, alignment: textAlignment!)
-            
             if let customTitleFont = self.customTitleFont {
                 titleSubtitleCell?.titleLabel?.font = customTitleFont
             }
             
+            titleSubtitleCell?.setTitle(titleString, titleColor: titleColor, subtitle: messageString, subtitleColor: messageColor, alignment: textAlignment!)
             // Set Content Margin
             titleSubtitleCell?.contentTopMargin = 20.0
             if self.actionList.count <= 0 {
                 titleSubtitleCell?.contentBottomMargin = 20.0
             }
             else {
-                titleSubtitleCell?.contentBottomMargin = 20.0
+                titleSubtitleCell?.contentBottomMargin = 0.0
             }
             
         case 1:
@@ -803,11 +802,11 @@ extension CFAlertViewController: UITableViewDataSource, UITableViewDelegate, CFA
     }
     
     public func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return UITableViewAutomaticDimension
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return UITableViewAutomaticDimension
     }
     
     
