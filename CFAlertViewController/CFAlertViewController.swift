@@ -169,6 +169,23 @@ open class CFAlertViewController: UIViewController    {
             }
         }
     }
+    
+    // Fonts
+    @objc public var customTitleFont: UIFont? {
+        didSet  {
+            if isViewLoaded {
+                print("\nSETTING CUSTOM FONT AFTER ALERT LOADED")
+            }
+        }
+    }
+    @objc public var customButtonFont: UIFont? {
+        didSet  {
+            if isViewLoaded {
+                print("\nSETTING CUSTOM FONT AFTER ALERT LOADED")
+            }
+        }
+    }
+    
     @objc @IBOutlet public weak var backgroundColorView: UIView?
     @objc @IBOutlet public weak var backgroundBlurView: UIVisualEffectView?
     @objc public var shouldDismissOnBackgroundTap: Bool = true  {   // Default is True
@@ -176,6 +193,7 @@ open class CFAlertViewController: UIViewController    {
             interactiveTransitionDelegate?.enableInteractiveTransition = shouldDismissOnBackgroundTap
         }
     }
+    
     
     // The view which holds the popup UI
     // You can change corner radius or background color of this view for additional customisation
@@ -732,13 +750,18 @@ extension CFAlertViewController: UITableViewDataSource, UITableViewDelegate, CFA
             let titleSubtitleCell: CFAlertTitleSubtitleTableViewCell? = (cell as? CFAlertTitleSubtitleTableViewCell)
             // Set Content
             titleSubtitleCell?.setTitle(titleString, titleColor: titleColor, subtitle: messageString, subtitleColor: messageColor, alignment: textAlignment!)
+            
+            if let customTitleFont = self.customTitleFont {
+                titleSubtitleCell?.titleLabel?.font = customTitleFont
+            }
+            
             // Set Content Margin
             titleSubtitleCell?.contentTopMargin = 20.0
             if self.actionList.count <= 0 {
                 titleSubtitleCell?.contentBottomMargin = 20.0
             }
             else {
-                titleSubtitleCell?.contentBottomMargin = 0.0
+                titleSubtitleCell?.contentBottomMargin = 20.0
             }
             
         case 1:
@@ -752,7 +775,7 @@ extension CFAlertViewController: UITableViewDataSource, UITableViewDelegate, CFA
             // Set Top Margin For First Action
             if indexPath.row == 0 {
                 if let titleString = titleString, let messageString = messageString, (!titleString.isEmpty && !messageString.isEmpty)   {
-                    actionCell?.actionButtonTopMargin = 12.0
+                    actionCell?.actionButtonTopMargin = 20.0
                 }
                 else {
                     actionCell?.actionButtonTopMargin = 20.0
