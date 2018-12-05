@@ -767,6 +767,9 @@ extension CFAlertViewController: UITableViewDataSource, UITableViewDelegate, CFA
             // Get Action Cell Instance
             cell = tableView.dequeueReusableCell(withIdentifier: CFAlertActionTableViewCell.identifier())
             let actionCell: CFAlertActionTableViewCell? = (cell as? CFAlertActionTableViewCell)
+            if let customTitleFont = self.customTitleFont {
+                actionCell?.textLabel?.font = customTitleFont
+            }
             // Set Delegate
             actionCell?.delegate = self
             // Set Action
