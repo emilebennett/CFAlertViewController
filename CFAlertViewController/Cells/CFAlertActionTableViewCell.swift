@@ -64,6 +64,7 @@ public class CFAlertActionTableViewCell: UITableViewCell {
                 
                 // Set Action Style
                 var actionBackgroundColor: UIColor? = action.backgroundColor
+                var actionShadowColor: UIColor? = action.shadowColor
                 var actionTextColor: UIColor? = action.textColor
                 
                 switch action.style {
@@ -91,6 +92,7 @@ public class CFAlertActionTableViewCell: UITableViewCell {
                     actionButton?.setTitleColor(actionTextColor, for: .normal)
                     actionButton?.layer.borderColor = nil
                     actionButton?.layer.borderWidth = 0.0
+                    applyShadow(color: actionShadowColor)
                     
                 default:
                     if actionBackgroundColor == nil {
@@ -103,6 +105,7 @@ public class CFAlertActionTableViewCell: UITableViewCell {
                     actionButton?.setTitleColor(actionTextColor, for: .normal)
                     actionButton?.layer.borderColor = nil
                     actionButton?.layer.borderWidth = 0.0
+                    applyShadow(color: actionShadowColor)
                 }
                 
                 
@@ -152,6 +155,7 @@ public class CFAlertActionTableViewCell: UITableViewCell {
         }
     }
     
+
     // MARK: Private
     @IBOutlet private var actionButton: CFPushButton?
     @IBOutlet private weak var actionButtonTopConstraint: NSLayoutConstraint?
@@ -179,8 +183,21 @@ public class CFAlertActionTableViewCell: UITableViewCell {
     
     internal func basicInitialisation() {
         // Set Action Button Properties
-        actionButton?.layer.cornerRadius = self.layer.bounds.size.height / 2
+        actionButton?.layer.cornerRadius = actionButton?.layer.bounds.size.height / 2
         actionButton?.pushTransformScaleFactor = 0.9
+    }
+    
+    internal func applyShadow(color:UIColor) {
+        
+        let layer = actionButton?.layer
+        let frame = actionButton?.bounds
+        layer.masksToBounds = false
+        
+        layer.shadowColor = color.cgColor
+        layer.shadowOpacity = 1.0
+        layer.shadowRadius = 0
+        layer.shadowOffset = CGSize(width: 1, height: 3)
+        layer.shadowPath = UIBezierPath(roundedRect: frame, cornerRadius: actionButton?.layer.bounds.size.height / 2).cgPath
     }
     
     
