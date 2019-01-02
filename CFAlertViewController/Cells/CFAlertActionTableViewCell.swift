@@ -179,7 +179,7 @@ public class CFAlertActionTableViewCell: UITableViewCell {
     
     internal func basicInitialisation() {
         // Set Action Button Properties
-        actionButton?.layer.cornerRadius = 6.0
+        actionButton?.layer.cornerRadius = self.layer.bounds.size.height / 2
         actionButton?.pushTransformScaleFactor = 0.9
     }
     
@@ -189,6 +189,7 @@ public class CFAlertActionTableViewCell: UITableViewCell {
         super.layoutIfNeeded()
         contentView.setNeedsLayout()
         contentView.layoutIfNeeded()
+        basicInitialisation()
     }
     
     public func setCustomFontForButton(font: UIFont){
