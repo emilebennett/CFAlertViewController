@@ -206,7 +206,7 @@ public class CFAlertActionTableViewCell: UITableViewCell {
         layer.shadowColor = color.cgColor
         layer.shadowOpacity = 1.0
         layer.shadowRadius = 0
-        layer.shadowOffset = CGSize(width: 1, height: 3)
+        layer.shadowOffset = CGSize(width: 2, height: 4)
         layer.shadowPath = UIBezierPath(roundedRect: frame, cornerRadius: actionButton.layer.bounds.size.height / 2).cgPath
     }
     
