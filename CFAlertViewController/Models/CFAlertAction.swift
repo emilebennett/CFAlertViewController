@@ -50,7 +50,7 @@ open class CFAlertAction: NSObject, NSCopying {
                                   style: style,
                                   alignment: alignment,
                                   backgroundColor: backgroundColor,
-                                  shadowColor: UIColor?,
+                                  shadowColor: shadowColor,
                                   textColor: textColor,
                                   handler: handler)
     }
