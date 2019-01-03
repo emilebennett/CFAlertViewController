@@ -185,7 +185,7 @@ open class CFAlertViewController: UIViewController    {
             }
         }
     }
-
+    
     
     @objc @IBOutlet public weak var backgroundColorView: UIView?
     @objc @IBOutlet public weak var backgroundBlurView: UIVisualEffectView?
@@ -769,13 +769,13 @@ extension CFAlertViewController: UITableViewDataSource, UITableViewDelegate, CFA
             let actionCell: CFAlertActionTableViewCell? = (cell as? CFAlertActionTableViewCell)
             if let customButtonFont = self.customButtonFont {
                 actionCell?.setCustomFontForButton(font: customButtonFont)
-                actionCell?.applyShadow(color: UIColor.red)
             }
             // Set Delegate
             actionCell?.delegate = self
             // Set Action
             actionCell?.action = self.actionList[indexPath.row]
             // Set Top Margin For First Action
+            
             if indexPath.row == 0 {
                 if let titleString = titleString, let messageString = messageString, (!titleString.isEmpty && !messageString.isEmpty)   {
                     actionCell?.actionButtonTopMargin = 20.0
