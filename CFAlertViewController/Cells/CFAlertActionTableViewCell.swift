@@ -90,8 +90,8 @@ public class CFAlertActionTableViewCell: UITableViewCell {
                     }
                     actionButton?.backgroundColor = actionBackgroundColor
                     actionButton?.setTitleColor(actionTextColor, for: .normal)
-                    actionButton?.layer.borderColor = nil
-                    actionButton?.layer.borderWidth = 0.0
+                    actionButton?.layer.borderColor = UIColor.clear.cgColor
+                    actionButton?.layer.borderWidth = 1.0
 //                    if let shadowColor = actionShadowColor {
 //                        applyShadow(color: shadowColor)
 //                    }
@@ -105,8 +105,8 @@ public class CFAlertActionTableViewCell: UITableViewCell {
                     }
                     actionButton?.backgroundColor = actionBackgroundColor
                     actionButton?.setTitleColor(actionTextColor, for: .normal)
-                    actionButton?.layer.borderColor = nil
-                    actionButton?.layer.borderWidth = 0.0
+                    actionButton?.layer.borderColor = UIColor.clear.cgColor
+                    actionButton?.layer.borderWidth = 1.0
 //                    if let shadowColor = actionShadowColor {
 //                        applyShadow(color: shadowColor)
 //                    }
