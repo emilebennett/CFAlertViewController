@@ -769,6 +769,7 @@ extension CFAlertViewController: UITableViewDataSource, UITableViewDelegate, CFA
             let actionCell: CFAlertActionTableViewCell? = (cell as? CFAlertActionTableViewCell)
             if let customButtonFont = self.customButtonFont {
                 actionCell?.setCustomFontForButton(font: customButtonFont)
+                actionCell?.applyShadow(color: UIColor.red)
             }
             // Set Delegate
             actionCell?.delegate = self
