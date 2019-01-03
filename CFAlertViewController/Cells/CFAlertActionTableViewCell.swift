@@ -82,9 +82,9 @@ public class CFAlertActionTableViewCell: UITableViewCell {
                     if actionTextColor == nil {
                         actionTextColor = CFAlertActionTableViewCell.CF_CANCEL_ACTION_TEXT_COLOR()
                     }
-                    actionButton?.backgroundColor = UIColor.clear
+                    actionButton?.backgroundColor = actionBackgroundColor
                     actionButton?.setTitleColor(actionTextColor, for: .normal)
-                    actionButton?.layer.borderColor = actionBackgroundColor?.cgColor
+                    actionButton?.layer.borderColor = UIColor.clear.cgColor
                     actionButton?.layer.borderWidth = 1.0
                     
                 case .Destructive:
